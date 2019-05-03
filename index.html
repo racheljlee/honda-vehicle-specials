@@ -1,0 +1,581 @@
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+<style>
+    .vehicle-selector {
+        max-width: 900px;
+        margin: 30px auto 20px;
+        text-align: center;
+    }
+
+    .show {
+        display: block;
+    }
+
+    button.dropdown-btn {
+        width: 270px;
+        border: none;
+        margin-bottom: 5px;
+        padding: 10px;
+        color: #fff;
+        font-weight: bold;
+        font-size: 1.2em;
+        box-sizing: border-box;
+        background: #007CC2;
+        border-bottom: 1px solid rgba(256,256,256,0.5);
+        cursor: pointer;
+    }
+
+    .dropdown-btn span {
+        font-size: .8em;
+    }
+
+    .dropdown-content {
+        background: #007CC2;
+        position: absolute;
+        z-index: 99;
+        width: 270px;
+        margin-top: -5px;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    .dropdown-content a {
+        display: block;
+        text-align: center;
+        border-bottom: 1px solid rgba(256,256,256,0.2);
+        padding: 12px;
+        text-decoration: none;
+        color: #fff;
+    }
+
+    .dropdown-content a:hover {
+        background: #0070AF;
+    }
+
+    .specials-div {
+        background: #ebebeb;
+        color: #595959;
+        box-sizing: border-box;
+        width: 100%;
+        max-width: 900px;
+        min-width: 290px;
+        margin: 0px auto 20px auto;
+        padding: 15px;
+        text-align: center;
+    }
+
+    .row-top div {
+        display: inline-block;
+    }
+
+    .car-img {
+        width: 45%;
+    }
+
+    .car-img img {
+        vertical-align: middle;
+    }
+
+    .car-ctas {
+        margin-left: 20px;
+        vertical-align: middle;
+    }
+
+    .car-ctas h1 {
+        font-size: 36px;
+        line-height: 40px;
+    }
+
+    .cta-buttons {
+        margin-top: 20px;
+    }
+
+    .cta-buttons .btns {
+        display: block;
+        width: 50%;
+        margin: 5px 0px;
+        background: #524e4e;
+        padding: 10px 0px;
+        font-size: 20px;
+        min-width: 240px;
+        border-radius: 10px;
+        border: 3px solid #524e4e;
+        box-sizing: border-box;
+        cursor: pointer;
+    }
+
+    .btns a {
+        text-decoration: none;
+        color: #fff;
+    }
+
+    .btns a:hover {
+        color: #595959;
+    }
+
+    .btns a.cta-1:hover {
+        color: #007CC2;
+    }
+
+    .cta-buttons .btns:hover {
+        background: none;
+        font-weight: bold;
+        color: #595959;
+    }
+
+    .cta-buttons .btns:first-child {
+        background: #007CC2;
+        border: 3px solid #007CC2;
+    }
+
+    .cta-buttons .btns:first-child:hover {
+        background: none;
+        font-weight: bold;
+        color: #007CC2;
+    }
+
+    .row-mid {
+        width: 100%;
+        margin: 10px 0px;
+        display: flex;
+    }
+
+    .row-mid .finance {
+        display: inline-block;
+        box-sizing: border-box;
+        padding: 20px;
+        background: #fff;
+        vertical-align: top;
+        margin: 5px;
+        flex: 1;
+        justify-content: center;
+        flex-direction: column;
+    }
+
+    .row-mid .finance:nth-child(2) {
+        margin-left: 0px;
+        margin-right: 0px;
+    }
+
+    .finance h2 {
+        color: #007CC2;
+        font-size: 40px;
+        padding: 5px 0px;
+    }
+
+    .finance h3 {
+        color: #007CC2;
+        font-size: 22px;
+    }
+
+    .or-circle {
+        width: 45px;
+        height: 45px;
+        color: #fff;
+        background: #007CC2;
+        font-weight: bold;
+        border-radius: 50%;
+        text-align: center;
+        line-height: 45px;
+        position: relative;
+        left: 243px;
+        top: calc(50% - 22.5px);
+        z-index: 1;
+        margin-bottom: -45px;
+    }
+
+    .or-circle-2 {
+        left: 390px;
+    }
+
+    .row-disclaimer p {
+        font-size: 10px;
+    }
+
+
+    @media only screen and (max-width: 768px) {
+        .or-circle {
+            width: 30px;
+            height: 30px;
+            line-height: 30px;
+            left: 202px;
+            font-size: 12px;
+            margin-bottom: -30px;
+        }
+
+        .or-circle-2 {
+            left: 322px;
+        }
+    }
+
+    @media only screen and (max-width: 425px) {
+        .car-img {
+            width: 75%;
+        }
+
+        .row-top {
+            margin-bottom: 30px;
+        }
+
+        .row-mid {
+            display: unset;
+        }
+
+        .row-mid .finance {
+            display: block;
+            margin: 0px;
+            margin-bottom: 5px;
+        }
+
+        .or-circle {
+            top: 130px;
+            left: calc(50% - 22.5px);
+        }
+
+        .or-circle-2 {
+            left: 50%;
+            transform: translateX(-50%)
+        }
+    }
+</style>
+
+
+<div class="vehicle-selector">
+    <button class="dropdown-btn">Choose Your Vehicle <span>&#9660;</span></button>
+    <div class="dropdown-content">
+        <a href="#honda-fit">Fit LX CVT</a>
+        <a href="#honda-civic">Civic LX CVT</a>
+        <a href="#honda-accord">Accord LX CVT</a>
+        <a href="#honda-hrv">HR-V LX AWD</a>
+        <a href="#honda-crv">CR-V LX AWD</a>
+        <a href="#honda-insight">Insight LX</a>
+        <a href="#honda-odyssey">Odyssey LX AWD</a>
+        <a href="#honda-pilot">Pilot LX AWD</a>
+    </div>
+</div>
+
+<!---------- HONDA FIT ---------->
+<div id="honda-fit" class="specials-div">
+    <div class="row-top">
+        <div class="car-img"><img
+                src="https://dealerimages.dealereprocess.com/image/upload/c_limit,f_auto,fl_lossy,w_400/v1/svp/dep/19hondafitlxcvthb3t/honda_19fitlxcvthb3t_angularfront_crystalblackpearl.png">
+        </div>
+        <div class="car-ctas">
+            <h1>New 2019</h1>
+            <h1>Honda Fit LX CVT</h1>
+            <div class="cta-buttons">
+                <div class="btns"><a href="/search/new-fit-ypsilanti-mi/?cy=48198&tp=new&md=130" class="cta-1">View Inventory</a></div>
+                <div class="btns"><a href="/ecredit/">Get Pre-Approved</a></div>
+                <div class="btns"><a href="/contact-us/">Contact Us</a></div>
+            </div>
+        </div>
+    </div>
+    <div class="row-mid">
+        <div class="finance">
+            <div class="or-circle">OR</div>
+            <p>Lease For Only</p>
+            <h2>$235/Mo.</h2>
+            <p>For 36 Months</p>
+            <h3>$0 DOWN*</h3>
+        </div>
+        <div class="finance">
+            <div class="or-circle">OR</div>
+            <p>Lease For Only</p>
+            <h2>$125/Mo.</h2>
+            <p>For 36 Months</p>
+            <h3>$3,500 Down*</h3>
+        </div>
+        <div class="finance">
+            <p>Finance As Low As</p>
+            <h2>2.9% APR</h2>
+            <h3>For 36 Months*</h3>
+        </div>
+    </div>
+    <div class="row-disclaimer">
+        <p>*Lease is for 3 years/12K miles per year. Payment plus tax, $0 or $3,500 down. $0 security deposit. AHFC lease must mature by 5/31/19 (lease extensions qualify).Special APR offer valid on new and unregistered 2019 Fit models through April 30th, 2019, to well qualified buyers on approved credit by Honda Financial Services through participating dealers. Must take new retail delivery on vehicle from dealer stock by April 30th, 2019. Not all buyers may qualify. See dealer for complete details. Offer expires 5/31/19.</p>
+    </div>
+</div>
+
+<!---------- HONDA CIVIC ---------->
+<div id="honda-civic" class="specials-div">
+    <div class="row-top">
+        <div class="car-img"><img
+                src="https://dealerimages.dealereprocess.com/image/upload/c_limit,f_auto,fl_lossy,w_400/v1/svp/dep/19hondaciviclxsd10fa/honda_19civiclxsd10fa_angularfront_lunarsilvermetallic.png">
+        </div>
+        <div class="car-ctas">
+            <h1>New 2019</h1>
+            <h1>Honda Civic LX CVT</h1>
+            <div class="cta-buttons">
+                <div class="btns"><a href="/search/new-2019-civic-ypsilanti-mi/?cy=48198&tp=new&md=126&yr=2019" class="cta-1">View Inventory</a></div>
+                <div class="btns"><a href="/ecredit/">Get Pre-Approved</a></div>
+                <div class="btns"><a href="/contact-us/">Contact Us</a></div>
+            </div>
+        </div>
+    </div>
+    <div class="row-mid">
+        <div class="finance">
+            <div class="or-circle or-circle-2">OR</div>
+            <p>Lease For Only</p>
+            <h2>$242/Mo.</h2>
+            <p>For 36 Months</p>
+            <h3>$0 DOWN*</h3>
+        </div>
+        <div class="finance">
+            <p>Lease For Only</p>
+            <h2>$182/Mo.</h2>
+            <p>For 36 Months</p>
+            <h3>$3,000 Down*</h3>
+        </div>
+    </div>
+    <div class="row-disclaimer">
+        <p>*Lease is for 3 years/12K miles per year. Payment plus tax, $3,000 or $0 down based on lease payment. $0 security deposit. AHFC lease must mature by 5/31/19 (lease extensions qualify). See dealer for complete details. Offer expires 5/31/19.</p>
+    </div>
+</div>
+
+<!---------- HONDA ACCORD ---------->
+<div id="honda-accord" class="specials-div">
+    <div class="row-top">
+        <div class="car-img"><img
+                src="https://dealerimages.dealereprocess.com/image/upload/c_limit,f_auto,fl_lossy,w_400/v1/svp/dep/19hondaciviclxsd10fa/honda_19civiclxsd10fa_angularfront_lunarsilvermetallic.png">
+        </div>
+        <div class="car-ctas">
+            <h1>New 2019</h1>
+            <h1>Honda Accord LX CVT</h1>
+            <div class="cta-buttons">
+                <div class="btns"><a href="/search/new-2019-accord-ypsilanti-mi/?cy=48198&tp=new&md=124&yr=2019">View Inventory</a></div>
+                <div class="btns"><a href="/ecredit/">Get Pre-Approved</a></div>
+                <div class="btns"><a href="/contact-us/">Contact Us</a></div>
+            </div>
+        </div>
+    </div>
+    <div class="row-mid">
+        <div class="finance">
+            <div class="or-circle or-circle-2">OR</div>
+            <p>Lease For Only</p>
+            <h2>$298/Mo.</h2>
+            <p>For 36 Months</p>
+            <h3>$0 DOWN*</h3>
+        </div>
+        <div class="finance">
+            <p>Lease For Only</p>
+            <h2>$200/Mo.</h2>
+            <p>For 36 Months</p>
+            <h3>$3,000 Down*</h3>
+        </div>
+    </div>
+    <div class="row-disclaimer">
+        <p>*Lease is for 3 years/12K miles per year. Payment plus tax, $3,000 or $0 down based on lease payment. $0 security deposit. AHFC lease must mature by 5/31/19 (lease extensions qualify). See dealer for complete details. Offer expires 5/31/19.</p>
+    </div>
+</div>
+
+<!---------- HONDA HR-V ---------->
+<div id="honda-hrv" class="specials-div">
+    <div class="row-top">
+        <div class="car-img"><img
+                src="https://dealerimages.dealereprocess.com/image/upload/c_limit,f_auto,fl_lossy,w_400/v1/svp/dep/19hondahrvlxawdcvtsu2t/honda_19hrvlxawdcvtsu2t_angularfront_platinumwhitepearl.png">
+        </div>
+        <div class="car-ctas">
+            <h1>New 2019</h1>
+            <h1>Honda HR-V LX AWD</h1>
+            <div class="cta-buttons">
+                <div class="btns"><a href="/search/new-2019-hr-v-ypsilanti-mi/?cy=48198&tp=new&md=3097&yr=2019" class="cta-1">View Inventory</a></div>
+                <div class="btns"><a href="/ecredit/">Get Pre-Approved</a></div>
+                <div class="btns"><a href="/contact-us/">Contact Us</a></div>
+            </div>
+        </div>
+    </div>
+    <div class="row-mid">
+        <div class="finance">
+            <div class="or-circle">OR</div>
+            <p>Lease For Only</p>
+            <h2>$310/Mo.</h2>
+            <p>For 36 Months</p>
+            <h3>$0 DOWN*</h3>
+        </div>
+        <div class="finance">
+            <div class="or-circle">OR</div>
+            <p>Lease For Only</p>
+            <h2>$200/Mo.</h2>
+            <p>For 36 Months</p>
+            <h3>$3,200 Down*</h3>
+        </div>
+        <div class="finance">
+            <p>Finance As Low As</p>
+            <h2>2.9% APR</h2>
+            <h3>For 36 Months*</h3>
+        </div>
+    </div>
+    <div class="row-disclaimer">
+        <p>*Lease is for 3 years/12K miles per year.  Payment plus tax, $3,200 or $0 down based on lease payment.  $0 security deposit. Special APR offer valid on new and unregistered 2019 HR-V models through April 30th, 2019, to well qualified buyers on approved credit by Honda Financial Services through participating dealers. Must take new retail delivery on vehicle from dealer stock by April 30th, 2019. Not all buyers may qualify. Higher rates apply for buyers with lower credit ratings. 2.9% for 24-36 months financing available. See dealer for complete details. Offer expires 5/31/19.</p>
+    </div>
+</div>
+
+<!---------- HONDA CR-V ---------->
+<div id="honda-crv" class="specials-div">
+    <div class="row-top">
+        <div class="car-img"><img
+                src="https://cloudflarestockimages.dealereprocess.com/resrc/images/stockphoto_asset-c_limit,f_auto,fl_lossy,w_400/v1/svp/Colors_PNG1280/2019/19honda/19hondacrvlxsu5a/honda_19crvlxsu5a_angularfront_obsidianbluepearl">
+        </div>
+        <div class="car-ctas">
+            <h1>New 2019</h1>
+            <h1>Honda CR-V LX AWD</h1>
+            <div class="cta-buttons">
+                <div class="btns"><a href="/search/new-cr-v-ypsilanti-mi/?cy=48198&tp=new&md=127" class="cta-1">View Inventory</a></div>
+                <div class="btns"><a href="/ecredit/">Get Pre-Approved</a></div>
+                <div class="btns"><a href="/contact-us/">Contact Us</a></div>
+            </div>
+        </div>
+    </div>
+    <div class="row-mid">
+        <div class="finance">
+            <div class="or-circle">OR</div>
+            <p>Lease For Only</p>
+            <h2>$323/Mo.</h2>
+            <p>For 36 Months</p>
+            <h3>$0 DOWN*</h3>
+        </div>
+        <div class="finance">
+            <div class="or-circle">OR</div>
+            <p>Lease For Only</p>
+            <h2>$250/Mo.</h2>
+            <p>For 36 Months</p>
+            <h3>$2,200 Down*</h3>
+        </div>
+        <div class="finance">
+            <p>Finance As Low As</p>
+            <h2>1.9% APR</h2>
+            <h3>For 36 Months*</h3>
+        </div>
+    </div>
+    <div class="row-disclaimer">
+        <p>*Lease is for 3 years/12K miles per year.  Payment plus tax, $0 or $2,200 down based on lease payment.  $0 security deposit.  Honda Lease Loyalty available for qualified buyers .Special APR offer valid on new and unregistered 2019 CR-V models through April 30th, 2019, to well qualified buyers on approved credit by Honda Financial Services through participating dealers. Must take new retail delivery on vehicle from dealer stock by April 30th, 2019.  Not all buyers may qualify. Higher rates apply for buyers with lower credit ratings. 1.9% for 36 months financing available.   See dealer for complete details. Offer expires 5/31/19.</p>
+    </div>
+</div>
+
+<!---------- HONDA INSIGHT ---------->
+<div id="honda-insight" class="specials-div">
+    <div class="row-top">
+        <div class="car-img"><img
+                src="https://dealerimages.dealereprocess.com/image/upload/c_limit,f_auto,fl_lossy,w_400/v1/svp/dep/19hondainsightlxecvthb3t/honda_19insightlxecvthb3t_angularfront_lunarsilvermetallic.png">
+        </div>
+        <div class="car-ctas">
+            <h1>New 2019</h1>
+            <h1>Honda Insight LX</h1>
+            <div class="cta-buttons">
+                <div class="btns"><a href="/search/new-insight-ypsilanti-mi/?cy=48198&tp=new&md=131" class="cta-1">View Inventory</a></div>
+                <div class="btns"><a href="/ecredit/">Get Pre-Approved</a></div>
+                <div class="btns"><a href="/contact-us/">Contact Us</a></div>
+            </div>
+        </div>
+    </div>
+    <div class="row-mid">
+        <div class="finance">
+            <div class="or-circle or-circle-2">OR</div>
+            <p>Lease For Only</p>
+            <h2>$377/Mo.</h2>
+            <p>For 36 Months</p>
+            <h3>$0 DOWN*</h3>
+        </div>
+        <div class="finance">
+            <p>Lease For Only</p>
+            <h2>$250/Mo.</h2>
+            <p>For 36 Months</p>
+            <h3>$3,700 Down*</h3>
+        </div>
+    </div>
+    <div class="row-disclaimer">
+        <p>*Lease is for 3 years/12K miles per year.  Payment plus tax, $0 or $3,700 down based on lease payment.  $0 security deposit.  AHFC lease must mature by 5/31/19 (lease extensions qualify). Must take new retail delivery on vehicle from dealer stock by April 30th, 2019. Not all buyers may qualify.  See dealer for complete details. Offer expires 5/31/19.</p>
+    </div>
+</div>
+
+<!---------- HONDA ODYSSEY ---------->
+<div id="honda-odyssey" class="specials-div">
+    <div class="row-top">
+        <div class="car-img"><img
+                src="https://dealerimages.dealereprocess.com/image/upload/c_limit,f_auto,fl_lossy,w_400/v1/svp/dep/19hondaodysseylxmv5t/honda_19odysseylxmv5t_angularfront_whitediamondpearl.png">
+        </div>
+        <div class="car-ctas">
+            <h1>New 2019</h1>
+            <h1>Honda Odyssey LX AWD</h1>
+            <div class="cta-buttons">
+                <div class="btns"><a href="/search/new-honda-odyssey-ypsilanti-mi/?cy=48198&tp=new&mk=23&md=132" class="cta-1">View Inventory</a></div>
+                <div class="btns"><a href="/ecredit/">Get Pre-Approved</a></div>
+                <div class="btns"><a href="/contact-us/">Contact Us</a></div>
+            </div>
+        </div>
+    </div>
+    <div class="row-mid">
+        <div class="finance">
+            <div class="or-circle">OR</div>
+            <p>Lease For Only</p>
+            <h2>$399/Mo.</h2>
+            <p>For 36 Months</p>
+            <h3>$0 DOWN*</h3>
+        </div>
+        <div class="finance">
+            <div class="or-circle">OR</div>
+            <p>Lease For Only</p>
+            <h2>$300/Mo.</h2>
+            <p>For 36 Months</p>
+            <h3>$3,059 Down*</h3>
+        </div>
+        <div class="finance">
+            <p>Finance As Low As</p>
+            <h2>2.9% APR</h2>
+            <h3>For 36 Months*</h3>
+        </div>
+    </div>
+    <div class="row-disclaimer">
+        <p>*Lease is for 3 years/12K miles per year with $3,059 or $0 down based on lease payment.  Payment plus tax and $0 security deposit. Special APR offer valid on new and unregistered 2019 Odyssey models through April 30th, 2019, to well qualified buyers on approved credit by Honda Financial Services through participating dealers. Must take new retail delivery on vehicle from dealer stock by April 30th, 2019. Not all buyers may qualify. Higher rates apply for buyers with lower credit ratings. 2.9% for 24-36 months financing available.  See dealer for complete details. Offer expires 5/31/19.</p>
+    </div>
+</div>
+
+<!---------- HONDA PILOT ---------->
+<div id="honda-pilot" class="specials-div">
+    <div class="row-top">
+        <div class="car-img"><img
+                src="https://cloudflarestockimages.dealereprocess.com/resrc/images/stockphoto_asset-c_limit,f_auto,fl_lossy,w_400/v1/svp/Colors_PNG1280/2019/19honda/19hondapilotlx4wdsu3fa/honda_19pilotlx4wdsu3fa_angularfront_steelsapphiremetallic">
+        </div>
+        <div class="car-ctas">
+            <h1>New 2019</h1>
+            <h1>Honda Pilot LX AWD</h1>
+            <div class="cta-buttons">
+                <div class="btns"><a href="/search/new-2019-honda-pilot-ypsilanti-mi/?cy=48198&tp=new&mk=23&yr=2019&md=133" class="cta-1">View Inventory</a></div>
+                <div class="btns"><a href="/ecredit/">Get Pre-Approved</a></div>
+                <div class="btns"><a href="/contact-us/">Contact Us</a></div>
+            </div>
+        </div>
+    </div>
+    <div class="row-mid">
+        <div class="finance">
+            <div class="or-circle">OR</div>
+            <p>Lease For Only</p>
+            <h2>$405/Mo.</h2>
+            <p>For 36 Months</p>
+            <h3>$0 DOWN*</h3>
+        </div>
+        <div class="finance">
+            <div class="or-circle">OR</div>
+            <p>Lease For Only</p>
+            <h2>$333/Mo.</h2>
+            <p>For 36 Months</p>
+            <h3>Honda Lease Loyalty Available*</h3>
+        </div>
+        <div class="finance">
+            <p>Finance As Low As</p>
+            <h2>0.9% APR</h2>
+            <h3>For 36 Months*</h3>
+        </div>
+    </div>
+    <div class="row-disclaimer">
+        <p>*Lease is for 3 years/12K miles per year with $1,999 or $0 down based on lease payment.  Payment plus tax and $0 security deposit. Special APR offer valid on new and unregistered 2019 Pilot models through April 30th, 2019, to well qualified buyers on approved credit by Honda Financial Services through participating dealers. Must take new retail delivery on vehicle from dealer stock by March 31st, 2019. Not all buyers may qualify. Higher rates apply for buyers with lower credit ratings. 0.9% for 24-36 months financing available.  See dealer for complete details. Offer expires 5/31/19.</p>
+    </div>
+</div>
+
+
+<script>
+    $(".dropdown-content").hide();
+    $(".dropdown-btn").on("click", function selectorToggle() {
+        $(".dropdown-content").toggle();
+    });
+</script>
